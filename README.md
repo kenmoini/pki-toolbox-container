@@ -40,4 +40,19 @@ openssl x509 -in example-certs/wildcard.kemo.labs.root-ca.pem -text -noout
 ## Check the chain
 openssl verify -CAfile example-certs/wildcard.kemo.labs.root-ca.pem \
  -untrusted example-certs/wildcard.kemo.labs.ca-chain.pem example-certs/wildcard.kemo.labs.cert.pem
+
+## Download a public Server Certificate
+echo -n | openssl s_client -connect kenmoini.com:443 -servername 'kenmoini.com' | openssl x509 > kenmoini.com.pem
+
+## Download the Let's Encrypt R3 Intermediate Certificate
+wget https://letsencrypt.org/certs/lets-encrypt-r3.pem
+
+## Verify the Intermediate against the system root store
+openssl verify lets-encrypt-r3.pem
+
+## Combine Intermediate and Server Certificate
+cat lets-encrypt-r3.pem kenmoini.com.pem > kenmoini-bundle.pem
+
+## Verify the chain
+openssl verify kenmoini-bundle.pem
 ```
