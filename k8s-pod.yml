@@ -8,6 +8,7 @@ metadata:
 spec:
   containers:
     - name: pki-toolbox
-      image: quay.io/kenmoini/pki-toolbox
+      imagePullPolicy: Always
+      image: quay.io/kenmoini/pki-toolbox:latest
       command: [ "/bin/bash", "-c", "--" ]
       args: [ "while true; do sleep 30; done;" ]
