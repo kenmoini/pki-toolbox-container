@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pki-toolbox
+  labels:
+    app: pki-toolbox
+spec:
+  containers:
+    - name: pki-toolbox
+      imagePullPolicy: Always
+      image: quay.io/kenmoini/pki-toolbox:latest
+      command: [ "/bin/bash", "-c", "--" ]
+      args: [ "while true; do sleep 30; done;" ]
+      volumeMounts:
+        - name: ca-trusts
+          mountPath: /etc/pki/ca-trust
+  volumes:
+    - name: ca-trusts
+      hostPath:
+        path: /etc/pki/ca-trust
+        type: Directory

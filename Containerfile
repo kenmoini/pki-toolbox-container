@@ -4,6 +4,10 @@ RUN dnf install -y openssl openssl-libs openssl-pkcs11 openssl-devel openssh-cli
 
 RUN python3 -m pip install --upgrade pip && python3 -m pip install --upgrade certbot
 
+RUN mkdir -p /opt/pki-toolbox && chown 1001:1001 /opt/pki-toolbox
+
 USER 1001
+
+WORKDIR /opt/pki-toolbox
 
 ENTRYPOINT /bin/bash
