@@ -28,11 +28,16 @@ There is a PKI chain that you can use for testing available in this repo:
 
 ```bash
 ## From within the running container...
+cd /tmp
 
 ## Clone down this repo
 git clone https://github.com/kenmoini/pki-toolbox-container
 cd pki-toolbox-container
 
-## Verify the Root CA
-openssl verify example-certs/wildcard.kemo.labs.root-ca.pem
+## Check the Root CA
+openssl x509 -in example-certs/wildcard.kemo.labs.root-ca.pem -text -noout
+
+## Check the chain
+openssl verify -CAfile example-certs/wildcard.kemo.labs.root-ca.pem \
+ -untrusted example-certs/wildcard.kemo.labs.ca-chain.pem example-certs/wildcard.kemo.labs.cert.pem
 ```
